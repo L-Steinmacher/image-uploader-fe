@@ -7,8 +7,8 @@ import UserContext from "../contexts/userContext";
 
 
 export default function Login(){
-    const initialValues = { username: '',
-                        password: ''};
+    const initialValues = { username: '', 
+                            password: ''};
     const { push } = useHistory();
     const [ userValue, setUserValue ] = useState(initialValues);
     const { setIsLoggedIn, setLocalId } = useContext(UserContext);
@@ -30,14 +30,10 @@ export default function Login(){
         })
     }
 
-
-
-
     return(
         <div>
             <h2> Please Log in to Continue</h2>
             <form onSubmit={submitLogin} className="form" >
-
                 <TextField 
                     placeholder = "username..."
                     value = {userValue.username}
@@ -55,13 +51,14 @@ export default function Login(){
                     type = "text"
                     />
                 <Button className = "button" type = "submit" variant = "contained">Log In</Button>
-                <div className="register" >
-                    <h3> Still not account? Register here!</h3>
-                    <Link to = "/Register">
-                        <Button className = "button" >Register</Button>
-                    </Link>
-                </div>
+                
             </form >
+            <div className="register" >
+                <h3> Still not account? Register here!</h3>
+                <Link to = "/Register">
+                    <Button className = "button" >Register</Button>
+                </Link>
+            </div>
         </div>
     )
 }
