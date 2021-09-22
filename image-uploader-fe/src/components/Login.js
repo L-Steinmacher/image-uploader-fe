@@ -35,7 +35,33 @@ export default function Login(){
 
     return(
         <div>
+            <h2> Please Log in to Continue</h2>
+            <form onSubmit={submitLogin} className="form" >
 
+                <TextField 
+                    placeholder = "username..."
+                    value = {userValue.username}
+                    name = "username"
+                    className = "textForm"
+                    variant = "outlined"
+                    type = "text"
+                    />
+                <TextField 
+                    placeholder = "password..."
+                    value = {userValue.password}
+                    name = "password"
+                    className = "textForm"
+                    variant = "outlined"
+                    type = "text"
+                    />
+                <Button className = "button" type = "submit" variant = "contained">Log In</Button>
+                <div className="register" >
+                    <h3> Still not account? Register here!</h3>
+                    <Link to = "/Register">
+                        <Button className = "button" >Register</Button>
+                    </Link>
+                </div>
+            </form >
         </div>
     )
 }
