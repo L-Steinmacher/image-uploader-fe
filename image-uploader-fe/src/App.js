@@ -1,9 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import useId from "./hooks/useId";
 import { UserContext } from './contexts/userContext';
-import { Switch } from '@mui/material';
-import { Route } from 'react-router';
+import { Switch, Route } from 'react-router-dom';
 
 import Nav from './components/Nav';
 import Home from './components/Home';
