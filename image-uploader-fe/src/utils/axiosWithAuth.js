@@ -6,7 +6,7 @@ const axiosWithAuth = () => {
         headers: {
             Authorization: token
         },
-        baseURL: `https://localhost/2019`
+        baseURL: `https://localhost:2019`
     });
 }
 

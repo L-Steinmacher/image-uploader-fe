@@ -7,6 +7,9 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import PrivateRoute from './utils/PrivateRoute';
 import PublicRoute from './utils/PublicRoute';
+import UploadImage from './components/UploadImage';
+import CreateUser from './components/CreateUser';
+import Login from './components/Login';
 
 function App() {
   const [localId, setLocalId, isLoggedIn, setIsLoggedIn] = useId(false, false);
@@ -16,10 +19,11 @@ function App() {
       <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, localId, setLocalId }}>
         <Nav />
         <Switch>
-          
+          <PrivateRoute path="/uploadImage" component={UploadImage}/>
+          <PublicRoute path="/signup" restricted={true} component={CreateUser} />
+          <PublicRoute path="/login" restricted={true} component={Login} />
           <Route path="/" component={ Home } />
         </Switch>
-
       </UserContext.Provider>
       
     </div>
