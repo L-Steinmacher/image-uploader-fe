@@ -25,12 +25,7 @@ export default function Login(){
         // }
         axios.post(`http://localhost:2019/login`,
         `grant_type=password&username=${userValue.username}&password=${userValue.password}`,
-        {
-            headers: {
-            // btoa is converting our client id/client secret into base64
-            Authorization: `Basic cGFuemVyLWNsaWVudDpwYW56ZXItc2VjcmV0`,
-            "Content-Type": "application/x-www-form-urlencoded",
-        }})
+        )
         .then(res => {
             setLocalId(true);
             setIsLoggedIn(true);
