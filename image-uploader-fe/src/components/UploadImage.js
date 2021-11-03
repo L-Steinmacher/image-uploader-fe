@@ -5,7 +5,7 @@ import { UserContext } from '../contexts/userContext';
 
 function UploadImage () {
 
-    const { localId } = useContext(useContext);
+    const { localId } = useContext(UserContext);
     const onDrop = useCallback(acceptedFiles => {
         axiosWithAuth()
             .post(`/user/${localId}/image/upload`)

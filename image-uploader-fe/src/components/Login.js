@@ -3,60 +3,77 @@ import { TextField, Button } from "@mui/material";
 import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 
-import UserContext from "../contexts/userContext";
+import {UserContext} from "../contexts/userContext";
 
 
 export default function Login(){
     const initialValues = { username: '', 
                             password: ''};
     const { push } = useHistory();
-    const [ userValue, setUserValue ] = useState(initialValues);
+    let [ userValue, setUserValue ] = useState(initialValues);
     const { setIsLoggedIn, setLocalId } = useContext(UserContext);
 
     const onChange = (e) => {
         const { name, value } = e.target;
-        setUserValue = ({... userValue, [name]: value})
+        setUserValue({...userValue, [name]:value});
     }
 
-    const submitLogin = (value) => {
-        axios.post(`https://localhost/login`, value)
+    const submitLogin = () => {
+        // const userlogin = { "grant_type" : "password",
+        //                     "username" : userValue.username,
+        //                     "password" : userValue.password
+        // }
+        axios.post(`http://localhost:2019/login`,
+        `grant_type=password&username=${userValue.username}&password=${userValue.password}`,
+        {
+            headers: {
+            // btoa is converting our client id/client secret into base64
+            Authorization: `Basic cGFuemVyLWNsaWVudDpwYW56ZXItc2VjcmV0`,
+            "Content-Type": "application/x-www-form-urlencoded",
+        }})
         .then(res => {
-            setLocalId();
-            setIsLoggedIn();
+            setLocalId(true);
+            setIsLoggedIn(true);
             push('/')
         })
         .catch(err => {
             console.log(err.message)
         })
     }
+    const onSubmit = (e) => {
+        e.preventDefault();
+        submitLogin(userValue);
+    }
 
     return(
         <div>
             <h2> Please Log in to Continue</h2>
-            <form onSubmit={submitLogin} className="form" >
+            <form onSubmit={onSubmit} className="form" >
                 <TextField 
-                    placeholder = "username..."
-                    value = {userValue.username}
-                    name = "username"
-                    className = "textForm"
-                    variant = "outlined"
-                    type = "text"
+                    placeholder="Username..."
+                    value={userValue.username}
+                    onChange={onChange}
+                    name="username"
+                    className="textForm"
+                    variant="outlined"
+                    type="text"
                     />
                 <TextField 
-                    placeholder = "password..."
-                    value = {userValue.password}
-                    name = "password"
-                    className = "textForm"
-                    variant = "outlined"
-                    type = "text"
+                    placeholder="Password..."
+                    value={userValue.password}
+                    onChange={onChange}
+                    name="password"
+                    className="textForm"
+                    variant="outlined"
+                    type="text"
                     />
-                <Button className = "button" type = "submit" variant = "contained">Log In</Button>
+                <Button className="button" type="submit" >Log In</Button>
                 
             </form >
             <div className="register" >
                 <h3> Still not account? Register here!</h3>
                 <Link to = "/Register">
-                    <Button className = "button" >Register</Button>
+                    <Button className="button" >Sign Up</Button>
                 </Link>
             </div>
         </div>

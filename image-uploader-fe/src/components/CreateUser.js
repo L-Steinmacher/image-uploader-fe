@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useHistory } from "react-router";
-import { TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
+
+import { UserContext } from "../contexts/userContext";
 
 
 const initialFormValues = {
@@ -13,14 +15,22 @@ const initialFormValues = {
 export default function CreateUser() {
     const { push } = useHistory();
     const [formValues, setFormValues] = useState(initialFormValues);
+    const { setLocalId, setIsLoggedIn } = useContext(UserContext);
 
-    const submitRegister = (value) => {
-        axios.post(`https://http://localhost:2019/user`, value)
+    const submitRegister = (formValues) => {
+        const newUser = {
+            "username": formValues.username,
+            "password": formValues.password,
+            "primaryemail": formValues.email
+        }
+        axios.post(`http://localhost:2019/createnewuser`, newUser)
         .then(res => {
             console.log(res)
+            setLocalId();
+            setIsLoggedIn(res.data.access_token)
             push('/login')
         }).catch(err => {
-            console.log(err);
+            console.log("error", err);
         })
     }
 
@@ -39,36 +49,36 @@ export default function CreateUser() {
             <h1>Create User</h1>
             <form onSubmit={onSubmit}>
                 <TextField
-                margin="normal"
-                label="Username"
-                placeholder="Username"
-                name="username"
-                onChange={onChange}
-                value={formValues.username}
-                variant="outlined"
-                />
+                    margin="normal"
+                    label="Username"
+                    placeholder="Username"
+                    name="username"
+                    onChange={onChange}
+                    value={formValues.username}
+                    variant="outlined"
+                    />
 
                 <TextField
-                margin="normal"
-                label="Email"
-                variant="outlined"
-                placeholder="Email"
-                onChange={onChange}
-                value= {formValues.email}
-                name= "email"
-                />
+                    margin="normal"
+                    label="Email"
+                    variant="outlined"
+                    placeholder="Email"
+                    onChange={onChange}
+                    value= {formValues.email}
+                    name= "email"
+                    />
 
                 <TextField
-                margin="normal"
-                type= "password"
-                onChange={onChange}
-                value= {formValues.password}
-                name= "password"
-                variant="outlined"
-                placeholder="Password"
-                label="Password"
-                />
-                <button type="submit" >Submit</button>
+                    margin="normal"
+                    type= "password"
+                    onChange={onChange}
+                    value= {formValues.password}
+                    name= "password"
+                    variant="outlined"
+                    placeholder="Password"
+                    label="Password"
+                    />
+                <Button type="submit" >Submit</Button>
             </form>
         </div>
     )
