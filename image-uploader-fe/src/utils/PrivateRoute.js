@@ -10,9 +10,9 @@ const PrivateRoute = ({component: Component, ...rest}) => {
         // Show the component only when the user is logged in
         // Otherwise, redirect the user to /login page
         <Route {...rest} render={props => (
-            isLoggedin() ?
+            isLoggedin ?
                 <Component {...props} />
-            : <Redirect to="/login" />
+            : <Redirect to="/login" /> 
         )} />
     )
 }

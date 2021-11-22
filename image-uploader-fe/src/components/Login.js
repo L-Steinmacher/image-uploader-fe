@@ -9,7 +9,7 @@ import {UserContext} from "../contexts/userContext";
 export default function Login(){
     const initialValues = { username: '', 
                             password: ''};
-    const { push } = useHistory();
+    const { goBack } = useHistory();
     let [ userValue, setUserValue ] = useState(initialValues);
     const { setIsLoggedIn, setLocalId } = useContext(UserContext);
 
@@ -19,27 +19,28 @@ export default function Login(){
     }
 
     const submitLogin = () => {
-        // const userlogin = { "grant_type" : "password",
-        //                     "username" : userValue.username,
-        //                     "password" : userValue.password
-        // }
         axios.post(`http://localhost:2019/login`,
         `grant_type=password&username=${userValue.username}&password=${userValue.password}`,
-        )
+        {
+            headers: {
+            Authorization: `Basic ${process.env.REACT_APP_CLIENT_ID}`,
+            "Content-Type": "application/x-www-form-urlencoded"
+        }})
         .then(res => {
+            console.log("logged in")
             setLocalId(true);
             setIsLoggedIn(true);
-            push('/')
+            goBack()
         })
         .catch(err => {
-            console.log(err.message)
+            console.error(err.message)
         })
     }
     const onSubmit = (e) => {
         e.preventDefault();
         submitLogin(userValue);
     }
-
+console.log(setIsLoggedIn())
     return(
         <div>
             <h2> Please Log in to Continue</h2>

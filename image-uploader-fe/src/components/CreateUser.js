@@ -26,11 +26,10 @@ export default function CreateUser() {
         axios.post(`http://localhost:2019/createnewuser`, newUser)
         .then(res => {
             console.log(res)
-            setLocalId();
-            setIsLoggedIn(res.data.access_token)
+            setIsLoggedIn(true)
             push('/login')
         }).catch(err => {
-            console.log("error", err);
+            console.error("error", err);
         })
     }
 
