@@ -35,7 +35,7 @@ function Nav () {
                 <Link className="link" to="/">Home</Link>
                 <Link className="link" to="/login">Login</Link>
                 <Link className="link" to="/signup">Sign Up</Link>
-                <Link className="link" to="/upload">Upload Image</Link>
+                <Link className="link" to="/uploadimage">Upload Image</Link>
                 <Link className="link" to="/logout" onClick={handleLogout} >Log Out</Link>
             </nav>
         </div>
