@@ -7,7 +7,7 @@ import {UserContext} from "../contexts/userContext";
 
 
 export default function Login(){
-    const initialValues = { username: '', 
+    const initialValues = { username: '',
                             password: ''};
     const { goBack } = useHistory();
     let [ userValue, setUserValue ] = useState(initialValues);
@@ -27,13 +27,12 @@ export default function Login(){
             "Content-Type": "application/x-www-form-urlencoded"
         }})
         .then(res => {
-            console.log("logged in")
-            setLocalId(true);
-            setIsLoggedIn(true);
+
+            setIsLoggedIn(res.data.access_token);
             goBack()
         })
         .catch(err => {
-            console.error(err.message)
+            console.error(err.data)
         })
     }
     const onSubmit = (e) => {
@@ -45,7 +44,7 @@ console.log(setIsLoggedIn())
         <div>
             <h2> Please Log in to Continue</h2>
             <form onSubmit={onSubmit} className="form" >
-                <TextField 
+                <TextField
                     placeholder="Username..."
                     value={userValue.username}
                     onChange={onChange}
@@ -54,7 +53,7 @@ console.log(setIsLoggedIn())
                     variant="outlined"
                     type="text"
                     />
-                <TextField 
+                <TextField
                     placeholder="Password..."
                     value={userValue.password}
                     onChange={onChange}
@@ -64,7 +63,7 @@ console.log(setIsLoggedIn())
                     type="text"
                     />
                 <Button className="button" type="submit" >Log In</Button>
-                
+
             </form >
             <div className="register" >
                 <h3> Still not account? Register here!</h3>

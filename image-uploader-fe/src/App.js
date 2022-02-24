@@ -12,14 +12,14 @@ import CreateUser from './components/CreateUser';
 import Login from './components/Login';
 
 function App() {
-  const [localId, setLocalId, isLoggedIn, setIsLoggedIn] = useId(false, false);
+  const [localId, setLocalId, isLoggedIn, setIsLoggedIn] = useId([], []);
 
   return (
     <div className="App">
       <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, localId, setLocalId }}>
         <Nav />
         <Switch>
-          <PrivateRoute path="/uploadimage" component={UploadImage}/>
+          <Route path="/uploadimage" component={UploadImage}/>
           <PublicRoute path="/signup" restricted={true} component={CreateUser} />
           <PublicRoute path="/login" restricted={true} component={Login} />
           <Route path="/" component={ Home } />

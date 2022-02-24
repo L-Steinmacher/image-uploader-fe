@@ -12,7 +12,7 @@ function Nav () {
         axiosWithAuth()
             .get(`/logout`)
             .then(res => {
-                console.log(res)
+                console.log("logout")
             })
             .catch(err => {
                 console.log(err)
