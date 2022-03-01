@@ -12,20 +12,20 @@ function Nav () {
         axiosWithAuth()
             .get(`/logout`)
             .then(res => {
-                console.log("logout")
+
             })
             .catch(err => {
-                console.log(err)
+                console.log(err.message)
             })
     }
 
     const handleLogout = () => {
+        serverLogout();
         setIsLoggedIn(false);
         setLocalId(false);
         localStorage.removeItem('id');
         localStorage.removeItem('token')
-        serverLogout();
-        push('/');
+        push('/login');
     }
 
     return(

@@ -9,7 +9,7 @@ import {UserContext} from "../contexts/userContext";
 export default function Login(){
     const initialValues = { username: '',
                             password: ''};
-    const { goBack } = useHistory();
+    const { push } = useHistory();
     let [ userValue, setUserValue ] = useState(initialValues);
     const { setIsLoggedIn, setLocalId } = useContext(UserContext);
 
@@ -27,9 +27,8 @@ export default function Login(){
             "Content-Type": "application/x-www-form-urlencoded"
         }})
         .then(res => {
-
             setIsLoggedIn(res.data.access_token);
-            goBack()
+            push("/")
         })
         .catch(err => {
             console.error(err.data)
@@ -39,7 +38,7 @@ export default function Login(){
         e.preventDefault();
         submitLogin(userValue);
     }
-console.log(setIsLoggedIn())
+
     return(
         <div>
             <h2> Please Log in to Continue</h2>

@@ -6,7 +6,7 @@ import { UserContext } from '../contexts/userContext';
 
 function UploadImage () {
 
-    const { localId, setLocalId } = useContext(UserContext);
+    const { localId } = useContext(UserContext);
     const onDrop = useCallback(acceptedFiles => {
         const file = acceptedFiles[0];
         const formData = new FormData();
@@ -14,7 +14,7 @@ function UploadImage () {
         uploadWithAuth()
             .post(`/users/user/${localId}/image/upload`, formData )
             .then(res => {
-                
+
                 console.log(`file: ${file}`,res)
             })
             .catch(err => {
@@ -23,16 +23,6 @@ function UploadImage () {
       }, [])
       const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
-    useEffect(()=> {
-        axiosWithAuth()
-            .get(`/users/getuserinfo`)
-            .then(res => {
-                setLocalId(res.data.id)
-            })
-            .catch(err =>{
-                console.log(err.message)
-            })
-    },[])
     
     return (
         <div {...getRootProps()}>
