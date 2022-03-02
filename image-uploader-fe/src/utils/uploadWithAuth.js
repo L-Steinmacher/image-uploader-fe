@@ -1,13 +1,14 @@
 import axios from "axios";
 
-const axiosWithAuth = () => {
+const uploadWithAuth = () => {
     const token = localStorage.getItem("token");
     return axios.create({
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            "Conetent-Type": "multipart/form-data"
         },
         baseURL: `http://localhost:2019`
     });
 }
 
-export default axiosWithAuth;
+export default uploadWithAuth;
