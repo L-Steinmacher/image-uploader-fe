@@ -3,9 +3,10 @@ import { useDropzone} from 'react-dropzone';
 import axiosWithAuth from '../utils/axiosWithAuth';
 import uploadWithAuth from '../utils/uploadWithAuth';
 import { UserContext } from '../contexts/userContext';
+import { ImageContext } from '../contexts/imageContext';
 
 function UploadImage () {
-
+    const { images, setImages } = useContext(ImageContext)
     const { localId } = useContext(UserContext);
     const onDrop = useCallback(acceptedFiles => {
         const file = acceptedFiles[0];
@@ -14,15 +15,13 @@ function UploadImage () {
         uploadWithAuth()
             .post(`/users/user/${localId}/image/upload`, formData )
             .then(res => {
-
-                console.log(`file: ${file}`,res)
+                setImages([...images, res.data])
             })
             .catch(err => {
                 console.log(err.message);
             })
       }, [])
       const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
-
     
     return (
         <div {...getRootProps()}>
