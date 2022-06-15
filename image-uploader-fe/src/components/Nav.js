@@ -5,14 +5,14 @@ import {UserContext} from '../contexts/userContext';
 import axiosWithAuth from '../utils/axiosWithAuth';
 
 function Nav () {
-    const { isLoggedIn, setIsLoggedIn, localId, setLocalId } = useContext(UserContext);
+    const { setIsLoggedIn, setLocalId } = useContext(UserContext);
     const { push } = useHistory();
 
     const serverLogout = () => {
         axiosWithAuth()
             .get(`/logout`)
             .then(res => {
-
+                
             })
             .catch(err => {
                 console.log(err.message)
@@ -24,7 +24,7 @@ function Nav () {
         setIsLoggedIn(false);
         setLocalId(false);
         localStorage.removeItem('id');
-        localStorage.removeItem('token')
+        localStorage.removeItem('token');
         push('/login');
     }
 
@@ -35,8 +35,8 @@ function Nav () {
                 <Link className="link" to="/">Home</Link>
                 <Link className="link" to="/login">Login</Link>
                 <Link className="link" to="/signup">Sign Up</Link>
-                <Link className="link" to="/uploadimage">Upload Image</Link>
-                <Link className="link" to="/logout" onClick={handleLogout} >Log Out</Link>
+                <Link className="link" to="/hikeUpload">hike</Link>
+                <Link className="link" to="/login" onClick={handleLogout} >Log Out</Link>
             </nav>
         </div>
     )
