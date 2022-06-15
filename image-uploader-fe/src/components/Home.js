@@ -18,22 +18,22 @@ function Home (){
                 console.log(err.message)
             })
         
-        const userid = localStorage.getItem("id");
+    },[])
 
+    useEffect(() => {
         axiosWithAuth()
-            .get(`/users/images/`)
-            .then(res => {
-                setImages(res.data)
-                // console.log(res.data)
-            }).catch(err => {
-                console.log(err.message)
-            })
-        
+        .get(`/users/images/`)
+        .then(res => {
+            console.log(res.data)
+            setImages(res.data)
+        }).catch(err => {
+            console.log(err.message)
+        })
     },[])
 
     return(
         <div>
-            <h3>Welcome </h3>
+
             {images.map(image => {
                 return <Card key={image.id} image={image} />
             })}
