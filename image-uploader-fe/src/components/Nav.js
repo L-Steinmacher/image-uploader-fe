@@ -2,30 +2,18 @@ import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import {UserContext} from '../contexts/userContext';
-import axiosWithAuth from '../utils/axiosWithAuth';
+
+import serverLogout  from '../utils/serverLogout';
 
 function Nav () {
     const { setIsLoggedIn, setLocalId } = useContext(UserContext);
     const { push } = useHistory();
 
-    const serverLogout = () => {
-        axiosWithAuth()
-            .get(`/logout`)
-            .then(res => {
-                
-            })
-            .catch(err => {
-                console.log(err.message)
-            })
-    }
-
     const handleLogout = () => {
         serverLogout();
         setIsLoggedIn(false);
         setLocalId(false);
-        localStorage.removeItem('id');
-        localStorage.removeItem('token');
-        push('/login');
+        push('/');
     }
 
     return(
