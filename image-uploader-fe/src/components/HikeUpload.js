@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import axios from 'axios';
+import uploadWithAuth from "../utils/uploadWithAuth";
 
 import { UserContext } from "../contexts/userContext";
 
@@ -22,7 +22,6 @@ function HikeUpload() {
     }
 
     const handleSubmit = (e) => {
-
         e.preventDefault();
 
         const hike = {  "comments": formValue.comment,
@@ -30,28 +29,20 @@ function HikeUpload() {
                         "trailid": 9,
                         "userid": parseInt(localId)};
 
-        console.log(hike.userid);
-
         const formData = new FormData();
-        if (isPickedFile) {
-            formData.append("file", (selectedFile));
-        }
         const json = JSON.stringify(hike)
         const blob = new Blob([json], {type : 'application/json'});
-
         formData.append("hike", blob);
-
-        // formData.append("hike", json) // we're not doing this.
-
-        for (const value of formData.values())
-        {
-            console.log(value)
+        
+        if (isPickedFile) {
+            formData.append("file", (selectedFile));
         }
 
         uploadWithAuth()
             .put(`/trails/trail/hike`, formData)
             .then(res => {
                 console.log("Success!", res)
+
             }).catch(err => {
                 if (err.response) {
                     // Request made and server responded
@@ -68,28 +59,19 @@ function HikeUpload() {
             })
     }
 
-    const uploadWithAuth = () => {
-        const token = localStorage.getItem("token");
-        return axios.create({
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Conetent-Type": "multipart/form-data"
-            },
-            baseURL: `http://localhost:2019`
-        });
-    }
  /**
  * todo create hike card to display hikes with optional image
  */
     return(
-        <div>
+        <div className="HikeForm">
             <form onSubmit={handleSubmit}>
                 <label>
                     Comments:
-                    <input type="text" 
-                        name="comment" 
-                        value={formValue.comment} 
-                        onChange={handleChange} />
+                    <input  type="text" 
+                            name="comment"
+                            placeholder="Tell us about your experience..."
+                            value={formValue.comment} 
+                            onChange={handleChange} />
                 </label>
                 <label>
                     Rating:
