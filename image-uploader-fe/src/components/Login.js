@@ -10,7 +10,7 @@ export default function Login(){
     const initialValues = { username: '',
                             password: ''};
     const { push } = useHistory();
-    let [ userValue, setUserValue ] = useState(initialValues);
+    const [ userValue, setUserValue ] = useState(initialValues);
     const { setIsLoggedIn, setLocalId } = useContext(UserContext);
 
     const onChange = (e) => {
