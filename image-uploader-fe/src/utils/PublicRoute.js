@@ -9,7 +9,7 @@ export default function PublicRoute ({ conponent: Component, restricted, ...rest
         // restricted = true meaning restricted route
         <Route {...rest} render={props => (
             isLoggedin() && restricted ?
-                <Redirect to="/dashboard" />
+                <Redirect to="/" />
             : <Component {...props} />
         )} />
     );
