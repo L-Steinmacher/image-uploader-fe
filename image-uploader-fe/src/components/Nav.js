@@ -17,18 +17,19 @@ function Nav () {
     }
 
     return(
-        <div className="Nav">
-            <h1>Welcome to the Internet!</h1>
-            <nav>
-                <Link className="link" to="/">Home</Link>
-                {!isLoggedIn && !localId && <Link className="link" to="/login">Login</Link>}
-                {!isLoggedIn && !localId && <Link className="link" to="/signup">Sign Up</Link>}
-                <Link className="link" to="/hikeUpload">hike</Link>
-                {isLoggedIn && localId && <Link className="link" to="/login" onClick={handleLogout} >Log Out</Link>}
-            </nav>
-        </div>
+        <div className="nav">
+            <h1>Welcome USERNAME GOES HERE!</h1>
+            <div classname="navbar has-text-centered container" >
+                <nav className='container '>
+                    <Link className="link" to="/">Home</Link>
+                    {!isLoggedIn && !localId && <Link className="link" to="/login">Login</Link>}
+                    {!isLoggedIn && !localId && <Link className="link" to="/signup">Sign Up</Link>}
+                    <Link className="link" to="/hikeUpload">Upload A Hike</Link>
+                    {isLoggedIn && localId && <Link className="link" to="/login" onClick={handleLogout} >Log Out</Link>}
+                </nav>
+            </div>
+       </div>
     )
-
 }
 
 export default Nav;
