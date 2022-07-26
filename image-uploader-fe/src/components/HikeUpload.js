@@ -24,7 +24,7 @@ function HikeUpload() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const hike = {  "comments": formValue.comment,
+        const hike = {  "comments": formValue.comment.trim(),
                         "rating": parseFloat(formValue.rating),
                         "trailid": 9,
                         "userid": parseInt(localId)};
@@ -63,7 +63,7 @@ function HikeUpload() {
  * todo create hike card to display hikes with optional image
  */
     return(
-        <div className="HikeForm">
+        <div className="hikeForm container">
             <form onSubmit={handleSubmit}>
                 <label>
                     Comments:
