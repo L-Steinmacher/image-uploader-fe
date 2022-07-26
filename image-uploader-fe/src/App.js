@@ -11,14 +11,17 @@ import CreateUser from './components/CreateUser';
 import Login from './components/Login';
 import HikeUpload from './components/HikeUpload';
 import { useState } from 'react';
+import useLocalStorage from './hooks/useLocalStorage';
 
 function App() {
-  const [localId, setLocalId, isLoggedIn, setIsLoggedIn] = useId([], []);
+  const [ localId, setLocalId, isLoggedIn, setIsLoggedIn ] = useLocalStorage(false, false);
   const [images, setImages] = useState([]);
+  const [token, setToken] = useState([]);
+  const [userName, setUserName] = useState("")
 
   return (
     <div className="App">
-      <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, localId, setLocalId }}>
+      <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, localId, setLocalId, token, setToken, userName, setUserName }}>
         <ImageContext.Provider value={{ images, setImages }} >
           <Nav />
           <Switch>
