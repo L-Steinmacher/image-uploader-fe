@@ -19,9 +19,9 @@ export default function CreateUser() {
 
     const submitRegister = (formValues) => {
         const newUser = {
-            "username": formValues.username,
-            "password": formValues.password,
-            "primaryemail": formValues.email
+            "username": formValues.username.trim(),
+            "password": formValues.password.trim(),
+            "primaryemail": formValues.email.trim(),
         }
         axios.post(`http://localhost:2019/createnewuser`, newUser)
         .then(res => {

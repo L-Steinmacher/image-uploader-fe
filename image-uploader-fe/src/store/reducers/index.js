@@ -2,6 +2,9 @@ import {
     USER_LOGIN_SUCCESS,
     USER_LOGIN_LOADING,
     USER_LOGIN_FAILURE,
+    GET_USER_DATA_LOADING,
+    GET_USER_DATA_SUCCESS,
+    GET_USER_DATA_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -9,6 +12,7 @@ const initialState = {
     isLoading:false,
     localId: false,
     isLoggedin: false,
+    username: "",
 }
 
 export const reducer = (state = initialState, action) => {
@@ -16,7 +20,7 @@ export const reducer = (state = initialState, action) => {
         case USER_LOGIN_SUCCESS:
             return {
                 ...state,
-                isLoading: false
+                isLoading: false,
             };
 
         case USER_LOGIN_LOADING:
@@ -31,6 +35,26 @@ export const reducer = (state = initialState, action) => {
                 error: action.payload,
                 isLoading: false,
             };
+
+        case GET_USER_DATA_LOADING:
+            return {
+                ...state,
+            };
+
+        case GET_USER_DATA_SUCCESS:
+            return {
+                ...state,
+                username: action.payload.username,
+                localId: action.payload.id,
+                isLoading: false,
+            };
+
+        case GET_USER_DATA_FAILURE:
+            return {
+                ...state,
+               error: action.payload,
+               isLoading: false,
+            }
 
           default:
             return state;

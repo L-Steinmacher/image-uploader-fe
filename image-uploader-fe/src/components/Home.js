@@ -3,22 +3,17 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 import { ImageContext } from "../contexts/imageContext"
 import { UserContext } from "../contexts/userContext";
 import Card from "./Card";
+import SearchBar from "./SearchBar";
+import { connect } from "react-redux";
+import { getUserData } from "../store";
 
-function Home (){
+function Home (props){
     const { images, setImages } = useContext(ImageContext);
-    const { localId, setLocalId } = useContext(UserContext)
-
+    const { localId, setLocalId, setToken, setUserName, userName } = useContext(UserContext)
+    const loggedIn = localStorage.getItem("userId"); 
     useEffect(() => {
-        axiosWithAuth()
-            .get(`/users/getuserinfo`)
-            .then(res => {
-                setLocalId(res.data.id)
-            })
-            .catch(err =>{
-                console.log(err.message)
-            })
-        
-    },[])
+        props.getUserData()
+    },[props.isLoggedIn])
 
     useEffect(() => {
         axiosWithAuth()
@@ -33,11 +28,20 @@ function Home (){
 
     return(
         <div>
-
+            <div className="hero-header ">
+                <h1 className="hero-title"> {loggedIn ? `Welcome ${props.username}!` : "Let us find your path."} </h1>
+                <SearchBar/>
+            </div>
             {images.map(image => {
                 return <Card key={image.id} image={image} />
             })}
         </div>
     )
 }
-export default Home;
+const mapStateToProps = (state) =>{
+    return {
+        isLoggedIn: state.isLoggedIn,
+        username: state.username,
+    }
+}
+export default connect(mapStateToProps, { getUserData })(Home) ;
