@@ -1,44 +1,32 @@
 import React, { useState, useContext } from "react";
 import { TextField, Button } from "@mui/material";
 import { useHistory, Link } from "react-router-dom";
+import { connect, useDispatch } from "react-redux";
 import axios from "axios";
 
+import { userLogin } from "../store";
 import {UserContext} from "../contexts/userContext";
 
-
-export default function Login(){
+const Login = (props) => {
     const initialValues = { username: '',
                             password: ''};
     const { push } = useHistory();
     const [ userValue, setUserValue ] = useState(initialValues);
-    const { setIsLoggedIn, setLocalId } = useContext(UserContext);
+    const { setIsLoggedIn, setToken, token } = useContext(UserContext);
 
     const onChange = (e) => {
         const { name, value } = e.target;
         setUserValue({...userValue, [name]:value});
     }
 
-    const submitLogin = () => {
-        axios.post(`http://localhost:2019/login`,
-        `grant_type=password&username=${userValue.username}&password=${userValue.password}`,
-        {
-            headers: {
-            Authorization: `Basic ${process.env.REACT_APP_CLIENT_ID}`,
-            "Content-Type": "application/x-www-form-urlencoded"
-        }})
-        .then(res => {
-            setIsLoggedIn(res.data.access_token);
-            push("/")
-        })
-        .catch(err => {
-            console.error(err.data)
-        })
-    }
     
     const onSubmit = (e) => {
         e.preventDefault();
-        submitLogin(userValue);
-    }
+        const user = {username: userValue.username.trim(),
+                      password: userValue.password.trim()}
+        props.userLogin(user)
+        push("/")
+     }
 
     return(
         <div>
@@ -74,3 +62,9 @@ export default function Login(){
         </div>
     )
 }
+const mapStateToProps = (state) => {
+    return {
+        isLoggedIn: state.isLoggedIn
+    }
+}
+export default connect(mapStateToProps, {userLogin})(Login)

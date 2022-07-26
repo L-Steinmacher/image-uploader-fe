@@ -1,11 +1,13 @@
 import axios from 'axios';
 import axiosWithAuth from "../../utils/axiosWithAuth";
 import uploadWithAuth from "../../utils/uploadWithAuth";
-import useLocalStorage from "../../hooks/useLocalStorage";
 
 export const USER_LOGIN_LOADING = "USER_LOGIN_LOADING";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGIN_FAILURE = "USER_LOGIN_FAILURE";
+export const GET_USER_DATA_SUCCESS = "GET_USER_DATA_SUCCESS";
+export const GET_USER_DATA_FAILURE = "GET_USER_DATA_FAILURE";
+export const GET_USER_DATA_LOADING = "GET_USER_DATA_LOADING";
 
 export const userLogin = (user) => {
     return (dispatch) => {
@@ -18,8 +20,9 @@ export const userLogin = (user) => {
             "Content-Type": "application/x-www-form-urlencoded"
         }})
         .then(res => {
-            useLocalStorage(res.data.token)
+            localStorage.setItem("token", res.data.access_token);
             dispatch({ type: USER_LOGIN_SUCCESS });
+
         })
         .catch(err => {
           console.log(err)
@@ -30,6 +33,17 @@ export const userLogin = (user) => {
 
 export const getUserData = () => {
     return(dispatch) => {
-        
+        dispatch({type: GET_USER_DATA_LOADING });
+        axiosWithAuth()
+            .get(`/users/getuserinfo`)
+            .then(res => {
+                dispatch({ type: GET_USER_DATA_SUCCESS, payload: res.data});
+                localStorage.setItem("userId", res.data.id);
+                console.log(res.data)
+            })
+            .catch(err =>{
+                dispatch({ type: GET_USER_DATA_FAILURE , payload: err.message})
+            })
+
     } ;
 }
