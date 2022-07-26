@@ -39,15 +39,14 @@
 
 nav {
   display: flex;
+  flex-direction: row;
   justify-content: space-evenly;
 }
 
 
 nav .link {
   border: 10px;
-  flex-direction: row;
   text-decoration: none;
-
 }
 
 .container {
@@ -62,4 +61,6 @@ nav .link {
   text-align: center !important;
 }
 
-
+.hero-header {
+  height: 50vh;
+}
