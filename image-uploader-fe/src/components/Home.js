@@ -5,31 +5,33 @@ import { UserContext } from "../contexts/userContext";
 import Card from "./Card";
 import SearchBar from "./SearchBar";
 import { connect } from "react-redux";
-import { getUserData } from "../store";
+import { getUserData, getAllTrailInfo } from "../store";
 
 function Home (props){
     const { images, setImages } = useContext(ImageContext);
-    const { localId, setLocalId, setToken, setUserName, userName } = useContext(UserContext)
     const loggedIn = localStorage.getItem("userId"); 
-    useEffect(() => {
-        props.getUserData()
-    },[props.isLoggedIn])
+    const { getAllTrailInfo, getUserData } = props    
 
     useEffect(() => {
-        axiosWithAuth()
-        .get(`/users/images/`)
-        .then(res => {
-            console.log(res.data)
-            setImages(res.data)
-        }).catch(err => {
-            console.log(err.message)
-        })
-    },[])
+        getUserData()
+        getAllTrailInfo()
+    },[props.isLoggedIn])
+
+    /* useEffect(() => { */
+    /*     axiosWithAuth() */
+    /*     .get(`/users/images/`) */
+    /*     .then(res => { */
+    /*         console.log(res.data) */
+    /*         setImages(res.data) */
+    /*     }).catch(err => { */
+    /*         console.log(err.message) */
+    /*     }) */
+    /* },[]) */
 
     return(
         <div>
             <div className="hero-header ">
-                <h1 className="hero-title"> {loggedIn ? `Welcome ${props.username}!` : "Let us find your path."} </h1>
+                <h1 className="hero-title"> {loggedIn ? `Welcome ${ props.username.toUpperCase() }!` : "Let us find your path."} </h1>
                 <SearchBar/>
             </div>
             {images.map(image => {
@@ -42,6 +44,7 @@ const mapStateToProps = (state) =>{
     return {
         isLoggedIn: state.isLoggedIn,
         username: state.username,
+        trailData: state.trailData,
     }
 }
-export default connect(mapStateToProps, { getUserData })(Home) ;
+export default connect(mapStateToProps, { getUserData, getAllTrailInfo })(Home);

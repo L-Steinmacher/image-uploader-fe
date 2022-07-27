@@ -2,8 +2,10 @@ import React, { useState, useContext } from "react";
 import uploadWithAuth from "../utils/uploadWithAuth";
 
 import { UserContext } from "../contexts/userContext";
+import { connect } from "react-redux";
+import { uploadHike} from "../store";
 
-function HikeUpload() {
+function HikeUpload(props) {
     const { localId } = useContext(UserContext);
 
     const initialValues = {comment: '', rating: ''};
@@ -38,25 +40,25 @@ function HikeUpload() {
             formData.append("file", (selectedFile));
         }
 
-        uploadWithAuth()
-            .put(`/trails/trail/hike`, formData)
-            .then(res => {
-                console.log("Success!", res)
+        // uploadWithAuth()
+        //     .put(`/trails/trail/hike`, formData)
+        //     .then(res => {
+        //         console.log("Success!", res)
 
-            }).catch(err => {
-                if (err.response) {
-                    // Request made and server responded
-                    console.log(err.response.data);
-                    console.log(err.response.status);
-                    console.log(err.response.headers);
-                  } else if (err.request) {
-                    // The request was made but no response was received
-                    console.log(err.request);
-                  } else {
-                    // Something happened in setting up the request that triggered an error
-                    console.log('Error', err.message);
-                  }
-            })
+        //     }).catch(err => {
+        //         if (err.response) {
+        //             // Request made and server responded
+        //             console.log(err.response.data);
+        //             console.log(err.response.status);
+        //             console.log(err.response.headers);
+        //           } else if (err.request) {
+        //             // The request was made but no response was received
+        //             console.log(err.request);
+        //           } else {
+        //             // Something happened in setting up the request that triggered an error
+        //             console.log('Error', err.message);
+        //           }
+        //     })
     }
 
  /**
@@ -93,4 +95,11 @@ function HikeUpload() {
         </div>
     )
 }
-export default HikeUpload;
+
+const mapStateToProps = (state) => {
+    return {
+        
+    }
+}
+
+export default connect(mapStateToProps, { uploadHike })(HikeUpload);

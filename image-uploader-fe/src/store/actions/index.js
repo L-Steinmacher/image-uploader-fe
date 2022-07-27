@@ -8,6 +8,12 @@ export const USER_LOGIN_FAILURE = "USER_LOGIN_FAILURE";
 export const GET_USER_DATA_SUCCESS = "GET_USER_DATA_SUCCESS";
 export const GET_USER_DATA_FAILURE = "GET_USER_DATA_FAILURE";
 export const GET_USER_DATA_LOADING = "GET_USER_DATA_LOADING";
+export const GET_ALL_TRAILS_INFO_LOADING = "GET_ALL_TRAILS_INFO_LOADING";
+export const GET_ALL_TRAILS_INFO_SUCCESS = "GET_ALL_TRAILS_INFO_SUCCESS";
+export const GET_ALL_TRAILS_INFO_FAILURE = "GET_ALL_TRAILS_INFO_FAILURE";
+export const UPLOAD_HIKE_LOADING = "UPLOAD_HIKE_LOADING";
+export const UPLOAD_HIKE_SUCCESS = "UPLOAD_HIKE_SUCCESS";
+export const UPLOAD_HIKE_FAILURE = "UPLOAD_HIKE_FAILURE";
 
 export const userLogin = (user) => {
     return (dispatch) => {
@@ -22,7 +28,6 @@ export const userLogin = (user) => {
         .then(res => {
             localStorage.setItem("token", res.data.access_token);
             dispatch({ type: USER_LOGIN_SUCCESS });
-
         })
         .catch(err => {
           console.log(err)
@@ -46,4 +51,33 @@ export const getUserData = () => {
             })
 
     } ;
+}
+
+export const getAllTrailInfo = () => {
+    return(dispatch) => {
+        dispatch({ type: GET_ALL_TRAILS_INFO_LOADING });
+        axios.get("http://localhost:2019/trails/trails")
+        .then(res => {
+            dispatch({ type: GET_ALL_TRAILS_INFO_SUCCESS, payload: res.data})
+            console.log(res.data)
+        })
+        .catch(err =>{
+            dispatch({ type: GET_ALL_TRAILS_INFO_FAILURE, payload: err.message})
+        })
+    }
+}
+
+export const uploadHike = (formData) => {
+    return(dispatch) => {
+        dispatch({type: UPLOAD_HIKE_LOADING});
+        uploadWithAuth()
+        .put(`/trails/trail/hike`, formData)
+        .then(res => {
+            console.log("Success!", res)
+            dispatch({ type: UPLOAD_HIKE_SUCCESS, payload: res.data })
+        }).catch(err => {
+              dispatch({ type: UPLOAD_HIKE_FAILURE, payload: err.message})
+        }) 
+
+    }
 }
