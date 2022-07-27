@@ -5,6 +5,9 @@ import {
     GET_USER_DATA_LOADING,
     GET_USER_DATA_SUCCESS,
     GET_USER_DATA_FAILURE,
+    GET_ALL_TRAILS_INFO_LOADING,
+    GET_ALL_TRAILS_INFO_SUCCESS,
+    GET_ALL_TRAILS_INFO_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -13,6 +16,7 @@ const initialState = {
     localId: false,
     isLoggedin: false,
     username: "",
+    trailsData: []
 }
 
 export const reducer = (state = initialState, action) => {
@@ -54,6 +58,26 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                error: action.payload,
                isLoading: false,
+            }
+
+        case GET_ALL_TRAILS_INFO_LOADING:
+            return {
+                ...state,
+                isLoading: true,
+            }
+
+        case GET_ALL_TRAILS_INFO_SUCCESS:
+            return {
+                ...state,
+                trailsData: action.payload,
+                isLoading: false,
+            }
+
+        case GET_ALL_TRAILS_INFO_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                isLoading: false,
             }
 
           default:

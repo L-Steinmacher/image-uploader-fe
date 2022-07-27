@@ -8,6 +8,10 @@ export const USER_LOGIN_FAILURE = "USER_LOGIN_FAILURE";
 export const GET_USER_DATA_SUCCESS = "GET_USER_DATA_SUCCESS";
 export const GET_USER_DATA_FAILURE = "GET_USER_DATA_FAILURE";
 export const GET_USER_DATA_LOADING = "GET_USER_DATA_LOADING";
+export const GET_ALL_TRAILS_INFO_LOADING = "GET_ALL_TRAILS_INFO_LOADING";
+export const GET_ALL_TRAILS_INFO_SUCCESS = "GET_ALL_TRAILS_INFO_SUCCESS";
+export const GET_ALL_TRAILS_INFO_FAILURE = "GET_ALL_TRAILS_INFO_FAILURE";
+
 
 export const userLogin = (user) => {
     return (dispatch) => {
@@ -46,4 +50,18 @@ export const getUserData = () => {
             })
 
     } ;
+}
+
+export const getAllTrailInfo = () => {
+    return(dispatch) => {
+        dispatch({ type: GET_ALL_TRAILS_INFO_LOADING });
+        axios.get("http://localhost:2019/trails/trails")
+        .then(res => {
+            dispatch({ type: GET_ALL_TRAILS_INFO_SUCCESS, payload: res.data})
+            console.log(res.data)
+        })
+        .catch(err =>{
+            dispatch({ type: GET_ALL_TRAILS_INFO_FAILURE, payload: err.message})
+        })
+    }
 }
