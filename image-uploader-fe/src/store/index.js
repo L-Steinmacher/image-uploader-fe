@@ -1,2 +1,2 @@
 export { reducer } from './reducers';
-export { getUserData, userLogin } from './actions';
+export { getUserData, userLogin, getAllTrailInfo} from './actions';
