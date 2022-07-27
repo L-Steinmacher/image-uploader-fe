@@ -47,4 +47,4 @@ const mapStateToProps = (state) =>{
         trailData: state.trailData,
     }
 }
-export default connect(mapStateToProps, { getUserData, getAllTrailInfo })(Home) ;
+export default connect(mapStateToProps, { getUserData, getAllTrailInfo })(Home);

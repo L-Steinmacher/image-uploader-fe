@@ -8,6 +8,9 @@ import {
     GET_ALL_TRAILS_INFO_LOADING,
     GET_ALL_TRAILS_INFO_SUCCESS,
     GET_ALL_TRAILS_INFO_FAILURE,
+    UPLOAD_HIKE_LOADING,
+    UPLOAD_HIKE_SUCCESS,
+    UPLOAD_HIKE_FAILURE,
 } from '../actions';
 
 const initialState = {
