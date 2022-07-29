@@ -6,7 +6,6 @@ const Card = (props) => {
     const { image } = props;
     const url= `http://localhost:2019/users/user/${image.user.id}/image/${image.id}/download`
 
-
     const [photo, setPhoto] = useState([])
     useEffect(() => {
       axiosWithAuth().get(`/users/user/${(parseInt(image.user.id))}/image/${parseInt(image.id)}/download`
