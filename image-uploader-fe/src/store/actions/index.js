@@ -14,6 +14,9 @@ export const GET_ALL_TRAILS_INFO_FAILURE = "GET_ALL_TRAILS_INFO_FAILURE";
 export const UPLOAD_HIKE_LOADING = "UPLOAD_HIKE_LOADING";
 export const UPLOAD_HIKE_SUCCESS = "UPLOAD_HIKE_SUCCESS";
 export const UPLOAD_HIKE_FAILURE = "UPLOAD_HIKE_FAILURE";
+export const GET_ALL_TRAILS_RATINGS_LOADING = "GET_ALL_TRAILS_RATINGS_LOADING";
+export const GET_ALL_TRAILS_RATINGS_SUCCESS = "GET_ALL_TRAILS_RATINGS_SUCCESS";
+export const GET_ALL_TRAILS_RATINGS_FAILURE = "GET_ALL_TRAILS_INFO_LOADING";
 
 export const userLogin = (user) => {
     return (dispatch) => {
@@ -73,11 +76,25 @@ export const uploadHike = (formData) => {
         uploadWithAuth()
         .put(`/trails/trail/hike`, formData)
         .then(res => {
-            console.log("Success!", res)
+            console.log("Success hike upload!", res)
             dispatch({ type: UPLOAD_HIKE_SUCCESS, payload: res.data })
         }).catch(err => {
               dispatch({ type: UPLOAD_HIKE_FAILURE, payload: err.message})
         }) 
 
+    }
+}
+
+export const getAllTrailRatings = () => {
+    return(dispatch) => {
+        dispatch({type: GET_ALL_TRAILS_RATINGS_LOADING});
+        axios.get("http://localhost:2019/trails/trails/ratings")
+        .then(res => {
+            console.log("Success getting ratings!", res)
+            dispatch({ type: GET_ALL_TRAILS_RATINGS_SUCCESS,payload: res.data})
+        })
+        .catch(err => {
+            dispatch({type: GET_ALL_TRAILS_RATINGS_FAILURE, payload: err.message})
+        })
     }
 }
