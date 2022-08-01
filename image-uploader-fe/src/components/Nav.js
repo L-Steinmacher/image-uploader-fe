@@ -14,18 +14,20 @@ function Nav () {
         setIsLoggedIn(false);
         setLocalId(false);
         push('/');
+        localStorage.removeItem('id');
+        localStorage.removeItem('token');
+        console.log(isLoggedIn, localId);
     }
 
     return(
         <div className="nav">
-            <h1>Welcome USERNAME GOES HERE!</h1>
-            <div classname="navbar has-text-centered container" >
-                <nav className='container '>
+            <div className="navbar has-text-centered " >
+                <nav className=' '>
                     <Link className="link" to="/">Home</Link>
-                    {!isLoggedIn && !localId && <Link className="link" to="/login">Login</Link>}
+                    {!isLoggedIn &&  <Link className="link" to="/login">Login</Link>}
                     {!isLoggedIn && !localId && <Link className="link" to="/signup">Sign Up</Link>}
                     <Link className="link" to="/hikeUpload">Upload A Hike</Link>
-                    {isLoggedIn && localId && <Link className="link" to="/login" onClick={handleLogout} >Log Out</Link>}
+                    {isLoggedIn &&  <Link className="link" to="/login" onClick={handleLogout} >Log Out</Link>}
                 </nav>
             </div>
        </div>

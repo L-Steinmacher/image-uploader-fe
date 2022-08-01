@@ -23,8 +23,9 @@ const SearchBar = () => {
                     variant="outlined"
                     type="text"
                     onChange={onChange}
-                    name="searchValue" />
-            </form>
+                name="searchValue" />
+                <button onClick={onSubmit} className="btn btn-primary">Search for a Trail</button>
+        </form>
         </div>
     )
 }

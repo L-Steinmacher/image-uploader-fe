@@ -61,9 +61,6 @@ function HikeUpload(props) {
         //     })
     }
 
- /**
- * todo create hike card to display hikes with optional image
- */
     return(
         <div className="hikeForm container">
             <form onSubmit={handleSubmit}>
