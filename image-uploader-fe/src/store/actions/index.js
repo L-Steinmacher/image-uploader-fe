@@ -1,6 +1,7 @@
 import axios from 'axios';
 import axiosWithAuth from "../../utils/axiosWithAuth";
 import uploadWithAuth from "../../utils/uploadWithAuth";
+import { history } from '../../utils/history';
 
 export const USER_LOGIN_LOADING = "USER_LOGIN_LOADING";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
@@ -31,6 +32,7 @@ export const userLogin = (user) => {
         .then(res => {
             localStorage.setItem("token", res.data.access_token);
             dispatch({ type: USER_LOGIN_SUCCESS });
+            history.push('/')
         })
         .catch(err => {
           console.log(err)
@@ -97,4 +99,17 @@ export const getAllTrailRatings = () => {
             dispatch({type: GET_ALL_TRAILS_RATINGS_FAILURE, payload: err.message})
         })
     }
+}
+
+export const submitRegister = (formValues) => {
+   return(dispatch) => {
+       dispatch({type: GET_USER_DATA_LOADING })
+       axios.post(`http://localhost:2019/createnewuser`, formValues)
+        .then(res => {
+            console.log(res)
+            history.push('/login')
+        }).catch(err => {
+            console.error("error", err);
+        })
+   }
 }
