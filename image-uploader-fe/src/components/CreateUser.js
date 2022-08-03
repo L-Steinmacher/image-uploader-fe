@@ -1,9 +1,10 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import { useHistory } from "react-router";
+import { connect } from "react-redux";
 import { TextField, Button } from "@mui/material";
 
 import { UserContext } from "../contexts/userContext";
+import { submitRegister } from "../store/actions";
 
 
 const initialFormValues = {
@@ -12,29 +13,35 @@ const initialFormValues = {
     password: ''
 }
 
-export default function CreateUser() {
-    const { push } = useHistory();
+const CreateUser = (props) => {
+    // const { push } = useHistory();
     const [formValues, setFormValues] = useState(initialFormValues);
     const { setLocalId, setIsLoggedIn } = useContext(UserContext);
 
-    const submitRegister = (formValues) => {
+    // const submitRegister = (formValues) => {
+        // const newUser = {
+        //     "username": formValues.username.trim(),
+        //     "password": formValues.password.trim(),
+        //     "primaryemail": formValues.email.trim(),
+        // }
+        // axios.post(`http://localhost:2019/createnewuser`, newUser)
+        // .then(res => {
+        //     console.log(res)
+        //     push('/login')
+        // }).catch(err => {
+        //     console.error("error", err);
+        // })
+    // }
+
+    const onSubmit = (e) => {
         const newUser = {
             "username": formValues.username.trim(),
             "password": formValues.password.trim(),
             "primaryemail": formValues.email.trim(),
         }
-        axios.post(`http://localhost:2019/createnewuser`, newUser)
-        .then(res => {
-            console.log(res)
-            push('/login')
-        }).catch(err => {
-            console.error("error", err);
-        })
-    }
-
-    const onSubmit = (e) => {
+         
         e.preventDefault();
-        submitRegister(formValues);
+        props.submitRegister(newUser);
     }
 
     const onChange = (e) => {
@@ -81,3 +88,11 @@ export default function CreateUser() {
         </div>
     )
 }
+
+const mapStateToProps = (state) => {
+    return {
+
+    }
+}
+
+export default connect(mapStateToProps, {submitRegister} )(CreateUser);
