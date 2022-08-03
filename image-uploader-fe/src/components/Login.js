@@ -25,7 +25,6 @@ const Login = (props) => {
         const user = {username: userValue.username.trim(),
                       password: userValue.password.trim()}
         props.userLogin(user)
-        push("/")
      }
 
     return(

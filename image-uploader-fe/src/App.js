@@ -15,8 +15,8 @@ import useLocalStorage from './hooks/useLocalStorage';
 
 function App() {
   const [ localId, setLocalId, isLoggedIn, setIsLoggedIn ] = useLocalStorage(false, false);
-  const [images, setImages] = useState([]);
-  const [token, setToken] = useState([]);
+  const [ images, setImages ] = useState([]);
+  const [ token, setToken ] = useState([]);
   const [userName, setUserName] = useState("")
 
   return (
@@ -28,7 +28,7 @@ function App() {
             <Route path="/hikeUpload" component={HikeUpload}/>
             <PublicRoute path="/signup" restricted={true} component={CreateUser} />
             <PublicRoute path="/login" restricted={true} component={Login} />
-            <Route path="/" component={ Home } />
+            <Route exact path="/" component={ Home } />
           </Switch>
         </ImageContext.Provider>
       </UserContext.Provider>
