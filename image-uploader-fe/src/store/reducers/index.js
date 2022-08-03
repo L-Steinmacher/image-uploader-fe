@@ -14,6 +14,9 @@ import {
     GET_ALL_TRAILS_RATINGS_LOADING,
     GET_ALL_TRAILS_RATINGS_SUCCESS,
     GET_ALL_TRAILS_RATINGS_FAILURE,
+    GET_TRAIL_DATA_LOADING,
+    GET_TRAIL_DATA_SUCCESS,
+    GET_TRAIL_DATA_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -22,6 +25,7 @@ const initialState = {
     localId: false,
     isLoggedIn: false,
     username: "",
+    trailData: [],
     trailsData: [],
     trailRatingData: [],
 }
@@ -93,7 +97,7 @@ export const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoading: true,
-            }  
+            }
 
         case GET_ALL_TRAILS_RATINGS_SUCCESS:
             return {
@@ -105,9 +109,30 @@ export const reducer = (state = initialState, action) => {
         case GET_ALL_TRAILS_RATINGS_FAILURE:
             return {
                 ...state,
-                error: action.payload, 
+                error: action.payload,
                 isLoading: false,
             }
+
+        case GET_TRAIL_DATA_LOADING:
+            return {
+                ...state,
+                isLoading: true,
+            }
+
+        case GET_TRAIL_DATA_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                trailData: action.payload,
+            }
+
+        case GET_TRAIL_DATA_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload,
+            }
+
           default:
             return state;
     }

@@ -9,16 +9,15 @@ import { getUserData, getAllTrailRatings } from "../store";
 
 function Home (props){
     /* const { images, setImages } = useContext(ImageContext); */
-    // const loggedIn = localStorage.getItem("userId"); 
-    const {  getAllTrailRatings, getUserData, trailRatingDatai } = props    
+    // const loggedIn = localStorage.getItem("userId");
+    const {  getAllTrailRatings, getUserData, trailRatingDatai } = props
 
-    let cookies = document.cookie.split(';') 
+    let cookies = document.cookie.split(';')
     useEffect(() => {
         getUserData()
         getAllTrailRatings()
-        console.log("************************* isLoggedIn: ", props.isLoggedIn, "username: ", props.username)
     },[getUserData,getAllTrailRatings, props.username, props.isLoggedIn])
-    
+
 
     return(
         <div>
@@ -27,8 +26,8 @@ function Home (props){
                 <SearchBar/>
             </div>
             {props.trailRatingData.map(rating => {
-                return <div >{rating.trailname} {rating.average} </div>
-            })}
+                return <TrailCard key={rating.trailid} props={rating}/>
+             })}
         </div>
     )
 }
