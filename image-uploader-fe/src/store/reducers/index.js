@@ -20,7 +20,7 @@ const initialState = {
     error:"",
     isLoading:false,
     localId: false,
-    isLoggedin: false,
+    isLoggedIn: false,
     username: "",
     trailsData: [],
     trailRatingData: [],
@@ -59,6 +59,7 @@ export const reducer = (state = initialState, action) => {
                 username: action.payload.username,
                 localId: action.payload.id,
                 isLoading: false,
+                isLoggedIn: true,
             };
 
         case GET_USER_DATA_FAILURE:
@@ -96,6 +97,7 @@ export const reducer = (state = initialState, action) => {
 
         case GET_ALL_TRAILS_RATINGS_SUCCESS:
             return {
+                ...state,
                 trailRatingData: action.payload,
                 isLoading: false,
             }

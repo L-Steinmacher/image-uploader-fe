@@ -9,11 +9,12 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import { Provider } from 'react-redux';
 import {reducer} from './store'
+import { history } from './utils/history';
 
 
 const store = createStore(reducer, applyMiddleware(thunk,logger));
 ReactDOM.render(
-  <Router>
+  <Router history={history}>
     <Provider store={store} >
       <App />
     </Provider>
