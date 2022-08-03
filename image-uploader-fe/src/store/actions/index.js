@@ -18,6 +18,9 @@ export const UPLOAD_HIKE_FAILURE = "UPLOAD_HIKE_FAILURE";
 export const GET_ALL_TRAILS_RATINGS_LOADING = "GET_ALL_TRAILS_RATINGS_LOADING";
 export const GET_ALL_TRAILS_RATINGS_SUCCESS = "GET_ALL_TRAILS_RATINGS_SUCCESS";
 export const GET_ALL_TRAILS_RATINGS_FAILURE = "GET_ALL_TRAILS_INFO_LOADING";
+export const GET_TRAIL_DATA_LOADING = "GET_TRAIL_DATA_LOADING";
+export const GET_TRAIL_DATA_SUCCESS = "GET_TRAIL_DATA_SUCCESS";
+export const GET_TRAIL_DATA_FAILURE = "GET_TRAIL_DATA_FAILURE";
 
 export const userLogin = (user) => {
     return (dispatch) => {
@@ -36,8 +39,8 @@ export const userLogin = (user) => {
         })
         .catch(err => {
           console.log(err)
-          dispatch({ type: USER_LOGIN_FAILURE , payload: err }) 
-        }) 
+          dispatch({ type: USER_LOGIN_FAILURE , payload: err })
+        })
     }
 };
 
@@ -82,7 +85,7 @@ export const uploadHike = (formData) => {
             dispatch({ type: UPLOAD_HIKE_SUCCESS, payload: res.data })
         }).catch(err => {
               dispatch({ type: UPLOAD_HIKE_FAILURE, payload: err.message})
-        }) 
+        })
 
     }
 }
@@ -113,3 +116,20 @@ export const submitRegister = (formValues) => {
         })
    }
 }
+
+export const getTrailData = (id) => {
+    return(dispatch) => {
+        dispatch({type: GET_TRAIL_DATA_LOADING})
+        axios.get(`http://localhost:2019/trails/trail/${id}`)
+        .then(res => {
+
+            history.push(`/trail/${id}`)
+            console.log(res.data)
+            dispatch({type: GET_TRAIL_DATA_SUCCESS,payload: res.data})
+        })
+        .catch(err => {
+            dispatch({type: GET_TRAIL_DATA_FAILURE, payload: err.message})
+        })
+    }
+}
+

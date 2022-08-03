@@ -12,7 +12,7 @@ const Login = (props) => {
                             password: ''};
     const { push } = useHistory();
     const [ userValue, setUserValue ] = useState(initialValues);
-    const { setIsLoggedIn, setToken, token } = useContext(UserContext);
+    /* const { setIsLoggedIn, setToken, token } = useContext(UserContext); */
 
     const onChange = (e) => {
         const { name, value } = e.target;

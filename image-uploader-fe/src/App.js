@@ -4,6 +4,7 @@ import { UserContext } from './contexts/userContext';
 import { ImageContext } from './contexts/imageContext';
 import { Switch, Route } from 'react-router-dom';
 
+import TrailPage from './components/TrailPage';
 import Nav from './components/Nav';
 import Home from './components/Home';
 import PublicRoute from './utils/PublicRoute';
@@ -25,6 +26,7 @@ function App() {
         <ImageContext.Provider value={{ images, setImages }} >
           <Nav />
           <Switch>
+            <Route path="/trail/:trailid" component={TrailPage} />
             <Route path="/hikeUpload" component={HikeUpload}/>
             <PublicRoute path="/signup" restricted={true} component={CreateUser} />
             <PublicRoute path="/login" restricted={true} component={Login} />
@@ -32,7 +34,7 @@ function App() {
           </Switch>
         </ImageContext.Provider>
       </UserContext.Provider>
-      
+
     </div>
   );
 }
