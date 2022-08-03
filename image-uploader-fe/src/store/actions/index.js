@@ -32,7 +32,7 @@ export const userLogin = (user) => {
         .then(res => {
             localStorage.setItem("token", res.data.access_token);
             dispatch({ type: USER_LOGIN_SUCCESS });
-            history.push('/')
+            history.push("/")
         })
         .catch(err => {
           console.log(err)
