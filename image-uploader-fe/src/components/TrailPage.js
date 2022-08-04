@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import TrailWeather from './TrailWeather';
 
 const TrailPage = (props) => {
     useEffect(() => {
-        console.log(props)
+        console.log("props", props)
     }, [])
     return (
         <div>
-            <h1>name here </h1>
-            {props.trailData.trailName}
+            <h1>{props.trailData.trailname}</h1>
+            <p>{props.trailData.traildiscription} </p>
+            <TrailWeather />
         </div>)
 }
 

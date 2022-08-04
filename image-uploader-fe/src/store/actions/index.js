@@ -21,6 +21,9 @@ export const GET_ALL_TRAILS_RATINGS_FAILURE = "GET_ALL_TRAILS_INFO_LOADING";
 export const GET_TRAIL_DATA_LOADING = "GET_TRAIL_DATA_LOADING";
 export const GET_TRAIL_DATA_SUCCESS = "GET_TRAIL_DATA_SUCCESS";
 export const GET_TRAIL_DATA_FAILURE = "GET_TRAIL_DATA_FAILURE";
+export const GET_TRAIL_WEATHER_LOADING = "GET_TRAIL_WEATHER_LOADING";
+export const GET_TRAIL_WEATHER_SUCCESS = "GET_TRAIL_WEATHER_SUCCESS";
+export const GET_TRAIL_WEATHER_FAILURE = "GET_TRAIL_WEATHER_FAILURE";
 
 export const userLogin = (user) => {
     return (dispatch) => {
@@ -109,7 +112,6 @@ export const submitRegister = (formValues) => {
        dispatch({type: GET_USER_DATA_LOADING })
        axios.post(`http://localhost:2019/createnewuser`, formValues)
         .then(res => {
-            console.log(res)
             history.push('/login')
         }).catch(err => {
             console.error("error", err);
@@ -122,7 +124,6 @@ export const getTrailData = (trailId) => {
         dispatch({type: GET_TRAIL_DATA_LOADING})
         axios.get(`http://localhost:2019/trails/trail/${trailId}`)
         .then(res => {
-            console.log("trail data: ", res.data)
             history.push(`/trail/${trailId}`)
             dispatch({type: GET_TRAIL_DATA_SUCCESS,payload: res.data })
         })
@@ -134,6 +135,13 @@ export const getTrailData = (trailId) => {
 
 export const getTrailWeather = (trailId) => {
     return(dispatch) => {
-
+        dispatch({ type:GET_TRAIL_WEATHER_LOADING})
+        axios.get(`http://localhost:2019/trails/trail/${trailId}/weather`)
+        .then(res => {
+            dispatch({ type:GET_TRAIL_WEATHER_SUCCESS, payload: res.data})
+        })
+        .catch(err => {
+            dispatch({ type:GET_TRAIL_WEATHER_FAILURE, payload: err.message})
+        })
     }
 }

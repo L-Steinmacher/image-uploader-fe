@@ -5,6 +5,7 @@ import { getTrailWeather } from '../store';
 const TrailWeather = (props) => {
 
 useEffect(() => {
+    console.log(props.trailData.trailid)
     getTrailWeather(props.trailData.trailid)
 },[])
 
