@@ -66,11 +66,11 @@ export const getAllTrailInfo = () => {
         dispatch({ type: GET_ALL_TRAILS_INFO_LOADING });
         axios.get("http://localhost:2019/trails/trails")
         .then(res => {
-            dispatch({ type: GET_ALL_TRAILS_INFO_SUCCESS, payload: res.data})
+            dispatch({ type: GET_ALL_TRAILS_INFO_SUCCESS, payload: res.data })
             console.log(res.data)
         })
         .catch(err =>{
-            dispatch({ type: GET_ALL_TRAILS_INFO_FAILURE, payload: err.message})
+            dispatch({ type: GET_ALL_TRAILS_INFO_FAILURE, payload: err.message })
         })
     }
 }
@@ -117,19 +117,23 @@ export const submitRegister = (formValues) => {
    }
 }
 
-export const getTrailData = (id) => {
+export const getTrailData = (trailId) => {
     return(dispatch) => {
         dispatch({type: GET_TRAIL_DATA_LOADING})
-        axios.get(`http://localhost:2019/trails/trail/${id}`)
+        axios.get(`http://localhost:2019/trails/trail/${trailId}`)
         .then(res => {
-
-            history.push(`/trail/${id}`)
-            console.log(res.data)
-            dispatch({type: GET_TRAIL_DATA_SUCCESS,payload: res.data})
+            console.log("trail data: ", res.data)
+            history.push(`/trail/${trailId}`)
+            dispatch({type: GET_TRAIL_DATA_SUCCESS,payload: res.data })
         })
         .catch(err => {
-            dispatch({type: GET_TRAIL_DATA_FAILURE, payload: err.message})
+            dispatch({type: GET_TRAIL_DATA_FAILURE, payload: err.message })
         })
     }
 }
 
+export const getTrailWeather = (trailId) => {
+    return(dispatch) => {
+
+    }
+}

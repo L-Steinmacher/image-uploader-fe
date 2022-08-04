@@ -122,8 +122,8 @@ export const reducer = (state = initialState, action) => {
         case GET_TRAIL_DATA_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
                 trailData: action.payload,
+                isLoading: false,
             }
 
         case GET_TRAIL_DATA_FAILURE:
