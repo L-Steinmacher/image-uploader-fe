@@ -12,7 +12,7 @@ const TrailCard = (props) => {
 
     return (
         <div className="container trailCard" onClick={handleClick} >
-            <h3>{ trailname }</h3>
+            <h3> { trailname }</h3>
             <span> { average } </span>
         </div>
     )
@@ -20,7 +20,7 @@ const TrailCard = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        TrailData: state.TrailData,
+        trailData: state.trailData,
     }
 }
 export default connect(mapStateToProps, {getTrailData} )(TrailCard);

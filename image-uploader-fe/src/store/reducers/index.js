@@ -17,6 +17,9 @@ import {
     GET_TRAIL_DATA_LOADING,
     GET_TRAIL_DATA_SUCCESS,
     GET_TRAIL_DATA_FAILURE,
+    GET_TRAIL_WEATHER_LOADING,
+    GET_TRAIL_WEATHER_SUCCESS,
+    GET_TRAIL_WEATHER_FAILURE,
 } from '../actions';
 
 const initialState = {
@@ -28,6 +31,7 @@ const initialState = {
     trailData: [],
     trailsData: [],
     trailRatingData: [],
+    trailWeather: [],
 }
 
 export const reducer = (state = initialState, action) => {
@@ -122,8 +126,8 @@ export const reducer = (state = initialState, action) => {
         case GET_TRAIL_DATA_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
                 trailData: action.payload,
+                isLoading: false,
             }
 
         case GET_TRAIL_DATA_FAILURE:
@@ -131,6 +135,25 @@ export const reducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 error: action.payload,
+            }
+        case GET_TRAIL_WEATHER_LOADING:
+            return {
+                ...state,
+                isLoading: true,
+            }
+
+        case GET_TRAIL_WEATHER_SUCCESS:
+            return {
+                ...state,
+                trailWeather: action.payload,
+                isLoading: false,
+            }
+
+        case GET_TRAIL_WEATHER_FAILURE:
+            return {
+                ...state,
+                error: action.payload,
+                isLoading: false,
             }
 
           default:
