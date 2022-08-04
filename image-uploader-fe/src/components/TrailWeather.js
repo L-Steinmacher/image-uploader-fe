@@ -5,9 +5,9 @@ import { getTrailWeather } from '../store';
 const TrailWeather = (props) => {
 
 useEffect(() => {
-    console.log(props.trailData.trailid)
-    getTrailWeather(props.trailData.trailid)
-},[])
+    props.getTrailWeather(props.trailData.trailid)
+    console.log(props, props.trailData.trailid)
+},[props.trailData.trailid])
 
 return (
         <div className="trail-weather-container container" >
@@ -19,6 +19,7 @@ return (
 const mapStateToProps = (state) => {
     return {
         trailData: state.trailData,
+        trailWeather: state.trailWeather,
     }
 }
-export default connect(mapStateToProps,{getTrailWeather})(TrailWeather);
+export default connect(mapStateToProps, { getTrailWeather })(TrailWeather);

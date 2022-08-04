@@ -138,6 +138,7 @@ export const getTrailWeather = (trailId) => {
         dispatch({ type:GET_TRAIL_WEATHER_LOADING})
         axios.get(`http://localhost:2019/trails/trail/${trailId}/weather`)
         .then(res => {
+            console.log("trail weather: ", res.data)
             dispatch({ type:GET_TRAIL_WEATHER_SUCCESS, payload: res.data})
         })
         .catch(err => {

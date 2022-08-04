@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import TrailWeather from './TrailWeather';
+import { getTrailWeather } from '../store';
 
 const TrailPage = (props) => {
     useEffect(() => {
         console.log("props", props)
+        getTrailWeather(props.trailData.trailid)
     }, [])
     return (
         <div>
@@ -20,4 +22,4 @@ const mapStateToProps = (state) => {
         trailRatingData: state.trailRatingData,
     }
 }
-export default connect(mapStateToProps)(TrailPage);
+export default connect(mapStateToProps, { getTrailWeather })(TrailPage);
